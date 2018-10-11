@@ -51,7 +51,8 @@ println "${deployment.type.name()} BUILD"
 enum Platforms {
     LINUX("linux"),
     MACOS("macos"),
-    WINDOWS("windows")
+    WINDOWS("windows"),
+    OPENBSD("openbsd")
 
     static final Platforms[] JAVA_ONLY = []
     static final Platforms[] ALL = values()
