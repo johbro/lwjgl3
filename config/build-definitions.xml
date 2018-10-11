@@ -91,9 +91,6 @@ This script is included in /build.xml and /config/update-dependencies.xml.
     <condition property="platform.linux">
         <os name="Linux"/>
     </condition>
-    <condition property="platform.openbsd">
-        <os name="OpenBSD"/>
-    </condition>
     <condition property="platform.freebsd">
         <os name="FreeBSD"/>
     </condition>
@@ -106,7 +103,6 @@ This script is included in /build.xml and /config/update-dependencies.xml.
 
     <property name="platform" value="windows" if:set="platform.windows"/>
     <property name="platform" value="linux" if:set="platform.linux"/>
-    <property name="platform" value="openbsd" if:set="platform.openbsd"/>
     <property name="platform" value="freebsd" if:set="platform.freebsd"/>
     <property name="platform" value="solaris" if:set="platform.solaris"/>
     <property name="platform" value="macos" if:set="platform.macos"/>
@@ -137,7 +133,6 @@ This script is included in /build.xml and /config/update-dependencies.xml.
 
     <property name="jni.headers" location="${java.home}/include" if:set="jdk9"/>
     <property name="jni.headers" location="${java.home}/../include" unless:set="jdk9"/>
-    <property name="jni.headers" location="${java.home}/include" if:set="jdk8"/>
     <condition property="set-boot-class-path">
         <and>
             <isset property="jdk9"/>
