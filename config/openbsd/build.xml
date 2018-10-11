@@ -24,7 +24,6 @@
         <attribute name="lang" default="c"/>
         <attribute name="clang.exec" default="clang${clang.suffix}"/>
         <attribute name="clangpp.exec" default="clang++${clang.suffix}"/>
-        <attribute name="lto" default="-flto"/>
         <attribute name="flags" default=""/>
         <attribute name="simple" default="false"/>
         <attribute name="relative" default="true"/>
@@ -40,8 +39,7 @@
                 <arg line="-c -std=c11" unless:set="cpp"/>
                 <arg line="-c -std=c++11" if:set="cpp"/>
                 <arg line="-m64" if:true="${build.arch.x64}"/>
-                <arg line="-m32 -mfpmath=sse -msse -msse2" unless:true="${build.arch.x64}"/>
-                <arg line="-O3 @{lto} -fPIC @{flags} -pthread -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE -DNDEBUG -DLWJGL_OPENBSD -DLWJGL_${build.arch}"/>
+                <arg line="-O3 -fPIC @{flags} -pthread -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0 -D_GNU_SOURCE -DNDEBUG -DLWJGL_OPENBSD -DLWJGL_${build.arch}"/>
 
                 <arg value="-I${jni.headers}"/>
                 <arg value="-I${jni.headers}/openbsd"/>
@@ -119,10 +117,8 @@
                 <srcfile/>
                 <arg value="-shared"/>
                 <arg value="-m64" if:true="${build.arch.x64}"/>
-                <arg value="-m32" unless:true="${build.arch.x64}"/>
 
-                <arg line="-z noexecstack"/>
-                <arg line="-O3 -flto -fPIC -pthread -o ${lib}/lib${name}${LIB_POSTFIX}.so"/>
+                <arg line="-O3 -fPIC -pthread -o ${lib}/lib${name}${LIB_POSTFIX}.so"/>
                 <arg line="-I/usr/include"/>
 
                 <arg line="-Wl,--version-script,${version.script}"/>
@@ -149,7 +145,7 @@
     </macrodef>
 
     <target name="compile-native-platform">
-        <compile dest="${bin.native}" lto="">
+        <compile dest="${bin.native}" >
             <fileset dir="." includes="${module.lwjgl}/core/src/main/c/${platform}/wrap_memcpy.c"/>
         </compile>
 
